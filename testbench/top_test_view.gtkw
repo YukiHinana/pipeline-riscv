@@ -1,0 +1,43 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sun Nov 21 20:02:52 2021
+[*]
+[dumpfile] "C:\Users\user\project\pipelined-processor\testbench\fetch-test.vcd"
+[dumpfile_mtime] "Sun Nov 21 20:00:45 2021"
+[dumpfile_size] 7815
+[savefile] "C:\Users\user\project\pipelined-processor\testbench\top_test_view.gtkw"
+[timestart] 0
+[size] 1920 1017
+[pos] -1 -1
+*-1.226673 11 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top_test.
+[treeopen] top_test.a.
+[sst_width] 197
+[signals_width] 375
+[sst_expanded] 1
+[sst_vpaned_height] 299
+@28
+top_test.a.clk
+top_test.a.reset
+@200
+-FETCH
+@22
+[color] 2
+top_test.a.fetch.instruction_out[31:0]
+[color] 2
+top_test.a.fetch.pc_out[31:0]
+@200
+-id
+@22
+top_test.a.id.opcode_out[6:0]
+top_test.a.id.immediate_out[31:0]
+top_test.a.id.func7_out[6:0]
+@28
+top_test.a.id.func3_out[2:0]
+@22
+top_test.a.id.rs1_number_out[4:0]
+top_test.a.id.rs2_number_out[4:0]
+@23
+top_test.a.id.rd_number_out[4:0]
+[pattern_trace] 1
+[pattern_trace] 0
