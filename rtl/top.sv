@@ -56,4 +56,23 @@ module top (
             .func7(rr_ex_func7), .func3(rr_ex_func3), 
             .opcode(rr_ex_opcode), .rd_number_out(dest_addr), 
             .result_out(data));
+
+    mem mem ();
+
+    memdev memdev ();        
+
+    
+                memdev #(20) my_mem(
+        .i_clk(i_clk),
+        .i_wb_cyc(ibus_o_wb_cyc),
+        .i_wb_stb(ibus_o_wb_stb && mem_sel),
+        .i_wb_we(ibus_o_wb_we),
+        .i_wb_addr(ibus_o_wb_addr[19-2:0]),
+        .i_wb_data(ibus_o_wb_data),
+        .i_wb_sel(ibus_o_wb_sel),
+
+        .o_wb_ack(mem_ack),
+        .o_wb_stall(mem_stall),
+        .o_wb_data(mem_data)
+    );
 endmodule

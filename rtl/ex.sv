@@ -10,7 +10,13 @@ module ex (
     input [2:0] func3,
     input [6:0] opcode,
     output reg [4:0] rd_number_out,
-    output reg [31:0] result_out
+    output reg [31:0] result_out,
+    output reg [31:0] pc_out,
+    output reg [31:0] rs1_val_out,
+    output reg [31:0] rs2_val_out,
+    output reg [31:0] immediate_out,
+    output reg [6:0] opcode_out,
+    output reg [2:0] func3_out
 );
 
 localparam  ALU = 7'b0110011, //ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND
@@ -18,13 +24,25 @@ localparam  ALU = 7'b0110011, //ADD, SUB, SLL, SLT, SLTU, XOR, SRL, SRA, OR, AND
 
 wire [31:0] sign_extended = {{20{immediate[11]}}, immediate[11:0]};
 
-always @ (posedge clk) begin
+always @(posedge clk) begin
     if (reset) begin
         rd_number_out <= 0;
         result_out <= 0;
+        pc_out <= 0;
+        rs1_val_out <= 0;
+        rs2_val_out <= 0;
+        immediate_out <= 0;
+        opcode_out <= 0;
+        func3_out <= 0;
     end
     else begin
         rd_number_out <= rd_number;
+        pc_out <= pc;
+        rs1_val_out <= rs1_val;
+        rs2_val_out <= rs2_val;
+        immediate_out <= immediate;
+        opcode_out <= opcode;
+        func3_out <= func3;
         if (opcode == ALU) begin
             if (func7 == 7'b0100000) begin
                 case (func3)
