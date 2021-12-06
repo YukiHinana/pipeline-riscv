@@ -1,0 +1,1 @@
+/usr/bin/verilator_bin;--compiler;gcc;--prefix;Vsystem;--Mdir;/home/user/pipeline-riscv/verilator/cmake-build-debug/CMakeFiles/riscv_sim.dir/Vsystem.dir;--make;cmake;--trace;--cc;-y;../rtl;-y;../gen_rtl;-Wno-width;../rtl/system.sv;../gen_rtl/wbuart_with_ihex.sv

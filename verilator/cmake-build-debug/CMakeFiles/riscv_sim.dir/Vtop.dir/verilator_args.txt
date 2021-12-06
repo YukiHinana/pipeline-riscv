@@ -1,0 +1,1 @@
+/usr/bin/verilator_bin;--compiler;gcc;--prefix;Vtop;--Mdir;/home/user/pipeline-riscv/verilator/cmake-build-debug/CMakeFiles/riscv_sim.dir/Vtop.dir;--make;cmake;--trace;--cc;-y;../rtl;-Wno-width;../rtl/top.sv

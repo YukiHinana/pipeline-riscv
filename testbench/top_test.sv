@@ -8,6 +8,8 @@ module top_test;
     initial begin
         a.fetch.i_mem[0] = 32'h3e800093;
         a.fetch.i_mem[1] = 32'h00108133;
+        a.fetch.i_mem[2] = 32'h00102023;
+        a.fetch.i_mem[3] = 32'h00000103;
     end
 
     always begin

@@ -1,47 +1,123 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun Nov 21 23:53:49 2021
+[*] Wed Nov 24 06:30:53 2021
 [*]
 [dumpfile] "/home/user/pipeline-riscv/testbench/fetch-test.vcd"
-[dumpfile_mtime] "Sun Nov 21 20:30:15 2021"
-[dumpfile_size] 7815
+[dumpfile_mtime] "Wed Nov 24 06:09:03 2021"
+[dumpfile_size] 13390
 [savefile] "/home/user/pipeline-riscv/testbench/top_test_view.gtkw"
-[timestart] 0
+[timestart] 19
 [size] 2488 1376
-[pos] -102 -102
-*-1.105544 12 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-2.105544 39 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top_test.
 [treeopen] top_test.a.
 [sst_width] 233
-[signals_width] 447
+[signals_width] 400
 [sst_expanded] 1
-[sst_vpaned_height] 876
+[sst_vpaned_height] 789
 @28
 top_test.a.clk
 top_test.a.reset
 @200
 -FETCH
-@22
-[color] 2
-top_test.a.fetch.instruction_out[31:0]
-[color] 2
-top_test.a.fetch.pc_out[31:0]
-@200
--id
-@22
-top_test.a.id.opcode_out[6:0]
-top_test.a.id.immediate_out[31:0]
-top_test.a.id.func7_out[6:0]
 @28
-top_test.a.id.func3_out[2:0]
+top_test.a.fetch.i_pipeline_stall
 @22
-top_test.a.id.rs1_number_out[4:0]
-top_test.a.id.rs2_number_out[4:0]
-top_test.a.id.rd_number_out[4:0]
+top_test.a.fetch.pc[31:0]
 @200
--rr
+-ID
+@2028
+^1 /home/user/pipeline-riscv/testbench/opcode.dict
+top_test.a.id.opcode[6:0]
+@28
+top_test.a.id.i_pipeline_stall
+top_test.a.id.o_pipeline_stall
+@200
+-
+@c00200
+-RR
+@2028
+^1 /home/user/pipeline-riscv/testbench/opcode.dict
+top_test.a.rr.i_opcode[6:0]
+@22
+top_test.a.rr.i_immediate[31:0]
+top_test.a.rr.i_rs1_number[4:0]
+top_test.a.rr.i_rs2_number[4:0]
+top_test.a.rr.i_rd_number[4:0]
+top_test.a.rr.o_rs1_val[31:0]
+top_test.a.rr.o_rs2_val[31:0]
+@28
+top_test.a.rr.o_pipeline_stall
+@1401200
+-RR
+@c00200
 -ex
+@2028
+^1 /home/user/pipeline-riscv/testbench/opcode.dict
+top_test.a.ex.i_opcode[6:0]
+@22
+top_test.a.ex.i_immediate[31:0]
+top_test.a.ex.i_rs1_val[31:0]
+top_test.a.ex.i_rs2_val[31:0]
+top_test.a.ex.i_rd_number[4:0]
+top_test.a.ex.o_result[31:0]
+@28
+top_test.a.ex.o_pipeline_stall
+@1401200
+-ex
+@200
+-MEM
+@2028
+^1 /home/user/pipeline-riscv/testbench/opcode.dict
+top_test.a.mem.i_opcode[6:0]
+@22
+top_test.a.mem.i_immediate[31:0]
+top_test.a.mem.i_rs1_val[31:0]
+top_test.a.mem.i_rs2_val[31:0]
+top_test.a.mem.i_rd_number[4:0]
+top_test.a.mem.i_result[31:0]
+top_test.a.mem.load_result[31:0]
+top_test.a.mem.o_rd_number[4:0]
+top_test.a.mem.o_result[31:0]
+@28
+top_test.a.mem.o_pipeline_stall
+@22
+top_test.a.mem.o_result[31:0]
+@800200
+-MemWB
+@22
+top_test.a.mem.state[3:0]
+@28
+top_test.a.mem.o_wb_cycle
+top_test.a.mem.o_wb_stb
+top_test.a.mem.o_wb_we
+@22
+top_test.a.mem.o_wb_addr[29:0]
+top_test.a.mem.o_wb_sel[3:0]
+top_test.a.mem.o_wb_data[31:0]
+@28
+top_test.a.mem.i_wb_ack
+@22
+top_test.a.mem.i_wb_data[31:0]
+@1000200
+-MemWB
+@200
+-MyMem
 @23
-top_test.a.ex.result_out[31:0]
+top_test.a.my_mem.w_addr[17:0]
+@22
+top_test.a.my_mem.w_data[31:0]
+@420
+top_test.a.my_mem.current_state
+@22
+top_test.a.my_mem.o_wb_data[31:0]
+@200
+-REG
+@22
+top_test.a.reg_file.x0[31:0]
+top_test.a.reg_file.x1[31:0]
+top_test.a.reg_file.x2[31:0]
+top_test.a.reg_file.x3[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

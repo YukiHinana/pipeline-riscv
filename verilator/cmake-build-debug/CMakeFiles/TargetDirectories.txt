@@ -1,0 +1,3 @@
+/home/user/pipeline-riscv/verilator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/user/pipeline-riscv/verilator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/user/pipeline-riscv/verilator/cmake-build-debug/CMakeFiles/riscv_sim.dir

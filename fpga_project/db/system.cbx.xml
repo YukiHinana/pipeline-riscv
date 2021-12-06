@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="system">
+		<CBX_INST_ENTRY INSTANCE_NAME="|system|YJTop:top|BlockRam:blockram|SinglePortRam:rams_0|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_uug1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|system|YJTop:top|BlockRam:blockram|SinglePortRam:rams_2|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_uug1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|system|YJTop:top|WBUartIhexWrapper:ihexUart|WBUartWithIhex:m|wbuart_with_buffer:uart_ctrlr|altsyncram:rx_buffer_rtl_0" CBX_FILE_NAME="altsyncram_gog1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|system|YJTop:top|BlockRam:blockram|SinglePortRam:rams_1|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_uug1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|system|YJTop:top|BlockRam:blockram|SinglePortRam:rams_3|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_uug1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

@@ -1,0 +1,5 @@
+/home/user/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/user/pipeline-riscv/verilator
+-- Executing Verilator...
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/user/pipeline-riscv/verilator/cmake-build-debug
