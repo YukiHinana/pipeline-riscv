@@ -12,8 +12,8 @@ module fetch (
     output reg o_wb_cycle, // wb bus
     output reg o_wb_stb,
     output reg o_wb_we,
-    output reg [3:0] o_wb_sel,
-    output reg [29:0] o_wb_addr,
+    output reg [3:0] o_wb_sel, // which byte to select from
+    output reg [29:0] o_wb_addr, // wb is word addressable
     output reg [31:0] o_wb_data
 );
 

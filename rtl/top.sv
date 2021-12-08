@@ -1,22 +1,15 @@
 module top (
     input clk,
-    input reset
-// `ifndef VERILATOR
-,
-    output wb2_cyc, wb2_stb, wb2_we, 
-    input wb2_ack, wb2_stall,
-    output [3:0] wb2_sel,
-    output [29:0] wb2_addr,
-    output [31:0] wb2_mosi_data,
-    input [31:0] wb2_miso_data,
-
-    output wb_cyc, wb_stb, wb_we,
-    input wb_ack, wb_stall,
-    output [3:0] wb_sel,
-    output [29:0] wb_addr,
-    output [31:0] wb_mosi_data, 
-    input  [31:0] wb_miso_data
-// `endif
+    input reset,
+    input i_wb_slave_ack,
+    input i_wb_slave_stall,
+    input [31:0] i_wb_slave_miso_data,
+    output o_wb_slave_cycle,
+    output o_wb_slave_stb,
+    output o_wb_slave_we,
+    output wire [3:0] o_wb_slave_sel,
+    output wire [29:0] o_wb_slave_addr,
+    output wire [31:0] o_wb_slave_mosi_data
 );
 
     wire [31:0] if_id_pc, if_id_instruction;
@@ -34,12 +27,11 @@ module top (
     wire load_new_pc;
     wire [31:0] new_pc;
 
-// `ifdef VERILATOR
-//     wire wb2_cyc, wb2_stb, wb2_we, wb2_ack, wb2_stall;
-//     wire [3:0] wb2_sel;
-//     wire [29:0] wb2_addr;
-//     wire [31:0] wb2_mosi_data, wb2_miso_data;
-// `endif
+
+    wire wb_fetch_cycle, wb_fetch_stb, wb_fetch_we, wb_fetch_ack, wb_fetch_stall;
+    wire [3:0] wb_fetch_sel;
+    wire [29:0] wb_fetch_addr;
+    wire [31:0] wb_fetch_mosi_data, wb_fetch_miso_data;
 
     fetch fetch (.clk, .reset, 
                 .i_pipeline_stall(id_pipeline_stall), 
@@ -47,15 +39,15 @@ module top (
                 .i_new_pc(new_pc), 
                 .o_instruction(if_id_instruction), 
                 .o_pc(if_id_pc),
-                .i_wb_ack(wb2_ack), 
-                .i_wb_data(wb2_miso_data), 
-                .i_wb_stall(wb2_stall),
-                .o_wb_cycle(wb2_cyc), 
-                .o_wb_stb(wb2_stb), 
-                .o_wb_we(wb2_we), 
-                .o_wb_sel(wb2_sel), 
-                .o_wb_addr(wb2_addr), 
-                .o_wb_data(wb2_mosi_data)
+                .i_wb_ack(wb_fetch_ack), 
+                .i_wb_data(wb_fetch_miso_data), 
+                .i_wb_stall(wb_fetch_stall),
+                .o_wb_cycle(wb_fetch_cyc), 
+                .o_wb_stb(wb_fetch_stb), 
+                .o_wb_we(wb_fetch_we), 
+                .o_wb_sel(wb_fetch_sel), 
+                .o_wb_addr(wb_fetch_addr), 
+                .o_wb_data(wb_fetch_mosi_data)
         );
 
     dual_port_reg_file reg_file (.clk, 
@@ -153,37 +145,64 @@ module top (
             .o_func3(ex_mem_func3), 
             .o_pipeline_stall(ex_pipeline_stall));
 
-// `ifdef VERILATOR
-//     wire wb_cyc, wb_stb, wb_we, wb_ack, wb_stall;
-//     wire [3:0] wb_sel;
-//     wire [29:0] wb_addr;
-//     wire [31:0] wb_mosi_data, wb_miso_data, mem_result;
-// `endif
+    wire wb_mem_cycle, wb_mem_stb, wb_mem_we, wb_mem_ack, wb_mem_stall;
+    wire [3:0] wb_mem_sel;
+    wire [29:0] wb_mem_addr;
+    wire [31:0] wb_mem_mosi_data, wb_mem_miso_data;
 
     mem mem (.clk, .reset, 
-                .i_rd_number(ex_mem_rd_number), 
-                .i_result(ex_mem_result), 
-                .i_pc(ex_mem_pc), 
-                .i_rs1_val(ex_mem_rs1_val), 
-                .i_rs2_val(ex_mem_rs2_val), 
-                .i_immediate(ex_mem_immediate), 
-                .i_opcode(ex_mem_opcode), 
-                .i_func3(ex_mem_func3), 
-                .i_wb_ack(wb_ack), 
-                .i_wb_data(wb_miso_data), 
-                .i_wb_stall(wb_stall), 
-                .o_mem_rd_number(df_mem_rd_number), 
-                .o_mem_result(df_mem_result), 
-                .o_mem_valid(df_mem_valid), 
-                .o_wb_cycle(wb_cyc), 
-                .o_wb_stb(wb_stb), 
-                .o_wb_we(wb_we), 
-                .o_wb_sel(wb_sel), 
-                .o_wb_addr(wb_addr), 
-                .o_wb_data(wb_mosi_data), 
-                .o_rd_number(dest_addr), 
-                .o_result(data), 
-                .o_pipeline_stall(mem_pipeline_stall));
+            .i_rd_number(ex_mem_rd_number), 
+            .i_result(ex_mem_result), 
+            .i_pc(ex_mem_pc), 
+            .i_rs1_val(ex_mem_rs1_val), 
+            .i_rs2_val(ex_mem_rs2_val), 
+            .i_immediate(ex_mem_immediate), 
+            .i_opcode(ex_mem_opcode), 
+            .i_func3(ex_mem_func3), 
+            .i_wb_ack(wb_mem_ack), 
+            .i_wb_data(wb_mem_miso_data), 
+            .i_wb_stall(wb_mem_stall), 
+            .o_mem_rd_number(df_mem_rd_number), 
+            .o_mem_result(df_mem_result), 
+            .o_mem_valid(df_mem_valid), 
+            .o_wb_cycle(wb_mem_cyc), 
+            .o_wb_stb(wb_mem_stb), 
+            .o_wb_we(wb_mem_we), 
+            .o_wb_sel(wb_mem_sel), 
+            .o_wb_addr(wb_mem_addr), 
+            .o_wb_data(wb_mem_mosi_data), 
+            .o_rd_number(dest_addr), 
+            .o_result(data), 
+            .o_pipeline_stall(mem_pipeline_stall));
+
+    arbiter arbiter (.clk, .reset,
+                    .i_wb_a_cycle(wb_fetch_cycle),
+                    .i_wb_a_stb(wb_fetch_stb),
+                    .i_wb_a_we(wb_fetch_we),
+                    .i_wb_a_sel(wb_fetch_sel),
+                    .i_wb_a_addr(wb_fetch_addr),
+                    .i_wb_a_mosi_data(wb_fetch_mosi_data),
+                    .o_wb_a_ack(wb_fetch_ack),
+                    .o_wb_a_stall(wb_fetch_stall),
+                    .o_wb_a_miso_data(wb_fetch_miso_data),
+                    .i_wb_b_cycle(wb_mem_cycle),
+                    .i_wb_b_stb(wb_mem_stb),
+                    .i_wb_b_we(wb_mem_we),
+                    .i_wb_b_sel(wb_mem_sel),
+                    .i_wb_b_addr(wb_mem_addr),
+                    .i_wb_b_mosi_data(wb_mem_mosi_data),
+                    .o_wb_b_ack(wb_mem_ack),
+                    .o_wb_b_stall(wb_mem_stall),
+                    .o_wb_b_miso_data(wb_mem_miso_data),
+                    .i_wb_slave_ack(i_wb_slave_ack),
+                    .i_wb_slave_stall(i_wb_slave_stall),
+                    .i_wb_slave_miso_data(i_wb_slave_miso_data),
+                    .o_wb_slave_cycle(o_wb_slave_cycle),
+                    .o_wb_slave_stb(o_wb_slave_stb),
+                    .o_wb_slave_we(o_wb_slave_we),
+                    .o_wb_slave_sel(o_wb_slave_sel),
+                    .o_wb_slave_addr(o_wb_slave_addr),
+                    .o_wb_slave_mosi_data(o_wb_slave_mosi_data));
 
 // `ifdef VERILATOR
 //     memdev #(20) my_mem2(
